@@ -10,23 +10,25 @@ const scrapeLogic = async (res) => {
       "--no-zygote",
       // Add argument to load extension
       `--disable-extensions-except=${process.env.PUPPETEER_EXTENSIONS}`,
-      `--load-extension=${process.env.PUPPETEER_EXTENSIONS}`,
+      `--load-extension=${process.env.PUPPETEER_EXTENSIONS}`
     ],
     executablePath:
       process.env.NODE_ENV === "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
   });
-  const page = await browser.newPage();
-  await page.setViewport({ width: 1080, height: 1024 });
   try {
+    const page = await browser.newPage();
 
-    let link = "https://www.watchasian.sk/running-man-2010-episode-695.html";
-    await page.goto(link,{timeout: 0,waitUntil: 'networkidle2'});
-    const htmlContent = await page.content();
+    await page.goto("https://developer.chrome.com/");
 
+    // Set screen size
+    await page.setViewport({ width: 1080, height: 1024 });
 
-    res.send(htmlContent);
+    let logStatement = "boom";
+    
+    console.log(logStatement);
+    res.send(logStatement);
   } catch (e) {
     console.error(e);
     res.send(`Something went wrong while running Puppeteer: ${e}`);
