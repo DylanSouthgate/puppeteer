@@ -17,6 +17,22 @@ const scrapeLogic = async (res) => {
   try {
     const page = await browser.newPage();
 
+    page.setRequestInterception(true);
+        page.on("request", req => {
+            if (req.url().endsWith(".m3u8"))
+            {
+                console.log(req.url());
+                browser.close();
+            }
+            if (req.url().endsWith(".png") || req.url().endsWith(".jpg") || req.url().endsWith(".css"))
+            {
+                req.abort();
+            }
+            else{
+                req.continue();
+            }
+        })
+
     // Set screen size
     await page.setViewport({ width: 1080, height: 1024 });
 
@@ -26,12 +42,13 @@ const scrapeLogic = async (res) => {
     console.log('Selector found: .watch_video > iframe');
     await page.click('.watch_video > iframe');
     console.log('Selector clicked');
-    res.send(`worked: ${e}`);
+    res.send("worked");
   } catch (e) {
     console.error(e);
     res.send(`Something went wrong while running Puppeteer: ${e}`);
-  } finally {
     await browser.close();
+  } finally {
+//    await browser.close();
   }
 };
 
