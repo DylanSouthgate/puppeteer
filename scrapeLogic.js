@@ -21,7 +21,6 @@ const scrapeLogic = async (res) => {
             if (req.url().endsWith(".m3u8"))
             {
                 console.log(req.url());
-                page.close();
             }
         })
   try {
