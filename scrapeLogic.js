@@ -20,12 +20,15 @@ const scrapeLogic = async (res) => {
   try {
     const page = await browser.newPage();
 
-    await page.goto("https://developer.chrome.com/");
+    await page.goto("https://www.watchasian.sk/running-man-2010-episode-695.html");
 
     // Set screen size
     await page.setViewport({ width: 1080, height: 1024 });
 
-    let logStatement = "boom";
+    await page.waitForSelector('.watch_video > iframe');
+    console.log('Selector found: .watch_video > iframe');
+    await page.click('.watch_video > iframe');
+    console.log('Selector clicked');
 
     const htmlContent = await page.content();
     
