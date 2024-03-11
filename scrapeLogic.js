@@ -24,13 +24,6 @@ const scrapeLogic = async (res) => {
                 console.log(req.url());
                 page.close();
             }
-            if (req.url().endsWith(".png") || req.url().endsWith(".jpg") || req.url().endsWith(".css"))
-            {
-                req.abort();
-            }
-            else{
-                req.continue();
-            }
         })
 
     // Set screen size
