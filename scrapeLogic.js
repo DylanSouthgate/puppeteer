@@ -22,6 +22,7 @@ const scrapeLogic = async (res) => {
             if (req.url().endsWith(".m3u8"))
             {
                 console.log(req.url());
+                page.close();
             }
             if (req.url().endsWith(".png") || req.url().endsWith(".jpg") || req.url().endsWith(".css"))
             {
