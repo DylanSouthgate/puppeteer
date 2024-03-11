@@ -19,17 +19,27 @@ const scrapeLogic = async (res) => {
   try {
     const page = await browser.newPage();
 
-    let link = "https://www.watchasian.sk/running-man-2010-episode-695.html";
+    page.setRequestInterception(true);
+        page.on("request", req => {
+            if (req.url().endsWith(".m3u8"))
+            {
+                console.log(req.url());
+                res.send(req.url());
+                page.close();
+            }
+            if (req.url().endsWith(".png") || req.url().endsWith(".jpg") || req.url().endsWith(".css"))
+            {
+                req.abort();
+            }
+            else{
+                req.continue();
+            }
+        })
 
+    let link = "https://www.watchasian.sk/running-man-2010-episode-695.html";
     await page.goto(link,{timeout: 0,waitUntil: 'networkidle2'});
     await page.waitForSelector('.watch_video > iframe');
     await page.click('.watch_video > iframe');
-    let title = "";
-    await page.waitForSelector('.m3u8')
-    .then(() => console.log("found it"));
-    title = await page.$eval('.m3u8', el => el.innerText);
-    await page.close();
-    res.send(title);
   } catch (e) {
     console.error(e);
     res.send(`Something went wrong while running Puppeteer: ${e}`);
