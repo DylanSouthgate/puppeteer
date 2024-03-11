@@ -9,6 +9,7 @@ const scrapeLogic = async (res) => {
       "--single-process",
       "--no-zygote",
       // Add argument to load extension
+      `--disable-extensions-except=${process.env.PUPPETEER_EXTENSIONS}`,
       `--load-extension=${process.env.PUPPETEER_EXTENSIONS}`,
     ],
     executablePath:
@@ -22,12 +23,6 @@ const scrapeLogic = async (res) => {
 
     let link = "https://www.watchasian.sk/running-man-2010-episode-695.html";
     await page.goto(link,{timeout: 0,waitUntil: 'networkidle2'});
-    await page.waitForSelector('.watch_video > iframe');
-    console.log('Selector found: .watch_video > iframe');
-    await page.click('.watch_video > iframe');
-    console.log('Selector clicked');
-
-
     const htmlContent = await page.content();
 
 
