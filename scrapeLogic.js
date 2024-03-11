@@ -22,7 +22,6 @@ const scrapeLogic = async (res) => {
             if (req.url().endsWith(".m3u8"))
             {
                 console.log(req.url());
-                browser.close();
             }
             if (req.url().endsWith(".png") || req.url().endsWith(".jpg") || req.url().endsWith(".css"))
             {
@@ -46,9 +45,8 @@ const scrapeLogic = async (res) => {
   } catch (e) {
     console.error(e);
     res.send(`Something went wrong while running Puppeteer: ${e}`);
-    await browser.close();
   } finally {
-//    await browser.close();
+    await browser.close();
   }
 };
 
