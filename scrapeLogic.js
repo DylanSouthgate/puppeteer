@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-require("dotenv").config();
+//require("dotenv").config();
 
 const scrapeLogic = async (res) => {
   const browser = await puppeteer.launch({
@@ -14,10 +14,9 @@ const scrapeLogic = async (res) => {
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
   });
-  try {
-    const page = await browser.newPage();
-
-    page.setRequestInterception(true);
+  const page = await browser.newPage();
+        await page.setViewport({ width: 1080, height: 1024 });
+//        page.setRequestInterception(true);
         page.on("request", req => {
             if (req.url().endsWith(".m3u8"))
             {
@@ -25,9 +24,7 @@ const scrapeLogic = async (res) => {
                 page.close();
             }
         })
-
-    // Set screen size
-    await page.setViewport({ width: 1080, height: 1024 });
+  try {
 
     let link = "https://www.watchasian.sk/running-man-2010-episode-695.html";
     await page.goto(link,{timeout: 0,waitUntil: 'networkidle2'});
