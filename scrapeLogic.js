@@ -3,6 +3,7 @@ require("dotenv").config();
 
 const scrapeLogic = async (res) => {
   const browser = await puppeteer.launch({
+    defaultViewport: null,
     args: [
       "--disable-setuid-sandbox",
       "--no-sandbox",
@@ -27,7 +28,7 @@ const scrapeLogic = async (res) => {
     await page.waitForSelector('.m3u8')
     .then(() => console.log("found it"));
     title = await page.$eval('.m3u8', el => el.innerText);
-    page.close();
+    await page.close();
     res.send(title);
   } catch (e) {
     console.error(e);
