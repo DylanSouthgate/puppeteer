@@ -26,9 +26,11 @@ const scrapeLogic = async (res) => {
     await page.setViewport({ width: 1080, height: 1024 });
 
     let logStatement = "boom";
+
+    const htmlContent = await page.content();
     
-    console.log(logStatement);
-    res.send(logStatement);
+    console.log(htmlContent);
+    res.send(htmlContent);
   } catch (e) {
     console.error(e);
     res.send(`Something went wrong while running Puppeteer: ${e}`);
