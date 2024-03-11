@@ -16,7 +16,7 @@ const scrapeLogic = async (res) => {
   });
   const page = await browser.newPage();
         await page.setViewport({ width: 1080, height: 1024 });
-//        page.setRequestInterception(true);
+  page.setRequestInterception(true);
         page.on("request", req => {
             if (req.url().endsWith(".m3u8"))
             {
