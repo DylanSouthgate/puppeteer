@@ -9,7 +9,7 @@ const scrapeLogic = async (res) => {
       "--single-process",
       "--no-zygote",
       // Add argument to load extension
-      `--load-extension=${path.resolve(process.env.PUPPETEER_EXTENSIONS)}`,
+      `--load-extension=${process.env.PUPPETEER_EXTENSIONS}`,
     ],
     executablePath:
       process.env.NODE_ENV === "production"
