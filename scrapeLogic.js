@@ -21,7 +21,7 @@ const scrapeLogic = async (res) => {
     const page = await browser.newPage();
     
     let link = "https://www.watchasian.sk/running-man-2010-episode-695.html";
-    await page.goto(link,{ timeout: 30000, waitUntil: 'networkidle2' });
+    await page.goto(link);
 
     const screenshot = await page.screenshot({ fullPage: true });
     res.set('Content-Type', 'image/png');
