@@ -33,7 +33,7 @@ const scrapeLogic = async (req,res) => {
     try {
 
   let link = "https://watchasia.to/wedding-impossible-2024-episode-1.html";
-        await page.goto(link,{timeout: 0,waitUntil: 'networkidle2'});
+        await page.goto(link,{waitUntil: 'networkidle2'});
         await page.waitForSelector('.watch_video > iframe');
         await page.click('.watch_video > iframe');
 
