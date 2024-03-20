@@ -18,6 +18,16 @@ const scrapeLogic = async (res) => {
     const page = await browser.newPage();
 
     await page.goto("https://watchasia.to/drama-detail/wedding-impossible");
+    let m3u8 = '';
+
+    page.on("request", req =>
+    {
+      if (req.url().endsWith(".m3u8"))
+      {
+          m3u8 = req.url();
+          console.log(m3u8);
+      }
+    })
 
     // Set screen size
     await page.setViewport({ width: 1080, height: 1024 });
