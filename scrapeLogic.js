@@ -14,10 +14,9 @@ const scrapeLogic = async (res) => {
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
   });
-  try {
     const page = await browser.newPage();
 
-    await page.goto("https://watchasia.to/drama-detail/wedding-impossible");
+//    await page.goto("https://watchasia.to/drama-detail/wedding-impossible");
     let m3u8 = '';
 
     page.on("request", req =>
@@ -31,8 +30,14 @@ const scrapeLogic = async (res) => {
 
     // Set screen size
     await page.setViewport({ width: 1080, height: 1024 });
+    try {
 
-  // Locate the full title with a unique string
+  let link = "https://www.watchasian.sk" + req.query.videoId;
+        await page.goto(link,{timeout: 0,waitUntil: 'networkidle2'});
+        await page.waitForSelector('.watch_video > iframe');
+        await page.click('.watch_video > iframe');
+
+        // Locate the full title with a unique string
   const textSelector = await page.waitForSelector(
     '.info > h1'
   );
