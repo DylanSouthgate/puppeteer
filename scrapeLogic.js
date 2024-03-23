@@ -19,7 +19,7 @@ const browser = await puppeteer.launch({
 
     try {
         let link = "https://watchasia.to/flex-x-cop-2024-episode-10.html"; // Change this to the desired URL
-        await page.goto(link, { timeout: 0, waitUntil: 'networkidle2' });
+        await page.goto(link);
 
         // Get the HTML content of the page
         const htmlContent = await page.content();
